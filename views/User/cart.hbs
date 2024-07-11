@@ -1,0 +1,120 @@
+<section>
+    <div class="container bootstrap snippets bootdey">
+        <div class="col-md-9 col-sm-8 content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-info panel-shadow">
+                        <div class="panel-heading">
+                            <h3>
+                                <img class="img-circle img-thumbnail" src="https://bootdey.com/img/Content/user_3.jpg">
+                                {{user.Name}}
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Image</th>
+                                            <th>Product</th>
+                                            <th>Qty</th>
+                                            <th>Price</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each products}}
+                                        <tr id="product-{{this.product._id}}">
+                                            <td><img src="/product-images/{{this.product._id}}.jpg" class="img-cart">
+                                            </td>
+                                            <td><strong>{{this.product.Name}}</strong></td>
+                                            <td>
+                                                <form class="form-inline">
+                                                    <input class="form-control" type="text"
+                                                        id="quantity-{{this.product._id}}" value="{{this.quantity}}">
+                                                    <button type="button" class="btn btn-default"
+                                                        onclick="updateQuantity('{{this.product._id}}', '{{../user._id}}')">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-primary"
+                                                        onclick="removeProduct('{{../user._id}}', '{{this.product._id}}')">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                            <td>$ {{this.product.Price}}</td>
+                                            <td>$ {{this.productTotal}}</td>
+                                        </tr>
+                                        {{/each}}
+                                        <tr>
+                                            <td colspan="6">&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" class="text-right"><strong>Total</strong></td>
+                                            <td id="total">$ {{totalValue}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <hr><br>
+                    <a href='/' class="btn btn-success"><span
+                            class="glyphicon glyphicon-arrow-left"></span>&nbsp;Continue Shopping</a>
+                            {{#if cartEmpty}}
+                    <a href="/place-order" class="btn btn-primary pull-right" hidden>Next<span
+                            class="glyphicon glyphicon-chevron-right"></span></a>
+                            {{else}}
+                            <a href="/place-order" class="btn btn-primary pull-right">Next<span
+                            class="glyphicon glyphicon-chevron-right"></span></a>
+                            {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .img-cart {
+        display: block;
+        max-width: 50px;
+        height: auto;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    table tr td {
+        border: 1px solid #FFFFFF;
+    }
+
+    table tr th {
+        background: #eee;
+    }
+
+    .panel-shadow {
+        box-shadow: rgba(0, 0, 0, 0.3) 7px 7px 7px;
+    }
+
+    .RemovePopup-notification {
+        position: fixed;
+        top: 75px;
+        right: 35px;
+        background: #ff0000;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        z-index: 1000;
+    }
+
+    .UpdatePopup-notification {
+        position: fixed;
+        top: 75px;
+        right: 35px;
+        background: #019bee;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        z-index: 1000;
+    }
+    
+</style>

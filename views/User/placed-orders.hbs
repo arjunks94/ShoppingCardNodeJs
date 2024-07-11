@@ -1,0 +1,98 @@
+<section>
+    <div class="container">
+        <h1>Order History</h1>
+        {{#if orders.length}}
+        <table>
+            <thead>
+                <tr>
+                    {{!-- <th scope="col">Date</th> --}}
+                    <th scope="col">Order Number</th>
+                    <th scope="col">Item Names</th>
+                    <th scope="col">QNT</th>
+                    <th scope="col">Order Total</th>
+                    <th scope="col">Payment Type</th>
+                    <th scope="col">Order Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each orders}}
+                <tr>
+                    {{!-- <td>{{this.date}}</td> --}}
+                    <td>
+                        <a href="/order-details?orderId={{this._id}}" class="btn btn-primary">{{this.orderNumber}}</a>
+                    </td>
+                    <td>
+                        {{#each this.products}}
+                        <div>{{this.name}}</div>
+                        {{/each}}
+                    </td>
+                    <td>
+                        {{#each this.products}}
+                        <div>{{this.quantity}}</div>
+                        {{/each}}
+                    </td>
+                    <td>${{this.total}}</td>
+                    <td>{{this.paymentMethod}}</td>
+                    <td
+                        class="{{#if (eq this.status 'Placed')}}status-placed{{else if (eq this.status 'Pending')}}status-pending{{/if}}">
+                        {{this.status}}
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        {{else}}
+        <p>No orders found.</p>
+        {{/if}}
+    </div>
+</section>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th,
+    td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    td {
+        vertical-align: top;
+    }
+
+    .no-orders {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .status-placed {
+        background-color: #4CAF50;
+        /* Green */
+        color: white;
+    }
+
+    .status-pending {
+        background-color: #fdd835;
+        /* Yellow */
+    }
+</style>

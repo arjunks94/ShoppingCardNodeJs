@@ -1,0 +1,740 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-7">
+                <div class="card">
+                    <div class="card-body">
+                        <ol class="activity-checkout mb-0 px-4 mt-3">
+                            <li class="checkout-item">
+                                <div class="avatar checkout-icon p-1">
+                                    <div class="avatar-title rounded-circle bg-primary">
+                                        <i class="bx bxs-receipt text-white font-size-20"></i>
+                                    </div>
+                                </div>
+                                <div class="feed-item-list">
+                                    <div>
+                                        <h5 class="font-size-16 mb-1">Billing Info</h5>
+                                        <div class="mb-3">
+                                            <form id="checkout-form">
+                                                <div>
+                                                    <div class="row">
+                                                        <div class="col-lg-4">
+                                                            <div class="mb-3">
+                                                                <label class="form-label"
+                                                                    for="billing-name">Name</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="billing-name" placeholder="Enter name"
+                                                                    name="name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="mb-3">
+                                                                <label class="form-label"
+                                                                    for="billing-email-address">Email Address</label>
+                                                                <input type="email" class="form-control"
+                                                                    id="billing-email-address" placeholder="Enter email"
+                                                                    name="email">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="mb-3">
+                                                                <label class="form-label"
+                                                                    for="billing-phone">Phone</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="billing-phone" placeholder="Enter Phone no."
+                                                                    name="phone">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="billing-address">Address</label>
+                                                        <textarea class="form-control" id="billing-address" rows="3"
+                                                            placeholder="Enter full address" name="address"></textarea>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-4">
+                                                            <div class="mb-4 mb-lg-0">
+                                                                <label class="form-label">Country</label>
+                                                                <input type="text" class="form-control" title="Country"
+                                                                    id="billing-country" placeholder="Enter Country"
+                                                                    name="country">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-4">
+                                                            <div class="mb-4 mb-lg-0">
+                                                                <label class="form-label"
+                                                                    for="billing-city">City</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="billing-city" placeholder="Enter City"
+                                                                    name="city">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-4">
+                                                            <div class="mb-0">
+                                                                <label class="form-label" for="zip-code">Zip / Postal
+                                                                    code</label>
+                                                                <input type="text" class="form-control" id="zip-code"
+                                                                    placeholder="Enter Postal code" name="pincode">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="checkout-item">
+                                <div class="avatar checkout-icon p-1">
+                                    <div class="avatar-title rounded-circle bg-primary">
+                                        <i class="bx bxs-wallet-alt text-white font-size-20"></i>
+                                    </div>
+                                </div>
+                                <div class="feed-item-list">
+                                    <div>
+                                        <h5 class="font-size-16 mb-1">Payment Info</h5>
+                                        <p class="text-muted text-truncate mb-4">Select your convenient Payment method
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-size-14 mb-3">Payment method :</h5>
+                                        <div class="row">
+                                            <div class="col-lg-3 col-sm-6">
+                                                <div>
+                                                    <label class="card-radio-label">
+                                                        <input type="radio" name="pay-method" value="ONLINE"
+                                                            id="pay-methodoption2" class="card-radio-input">
+                                                        <span class="card-radio py-3 text-center text-truncate ">
+                                                            <i
+                                                                class="bx simple-icons--razorpay icon-center d-block h2 mb-3"></i>
+                                                            Razor Pay
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-3 col-sm-6">
+                                                <div>
+                                                    <label class="card-radio-label">
+                                                        <input type="radio" name="pay-method" id="pay-methodoption3"
+                                                            class="card-radio-input" checked="" value="COD">
+                                                        <span class="card-radio py-3 text-center text-truncate">
+                                                            <i class="bx bx-money d-block h2 mb-3"></i>
+                                                            <span>Cash on Delivery</span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="row my-4">
+                    <div class="col">
+                        <a href="/cart" class="btn btn-link text-muted">
+                            <i class="mdi mdi-arrow-left me-1"></i> Go Back to Cart </a>
+                    </div>
+                    <div class="col">
+                        <div class="text-end mt-2 mt-sm-0">
+                            <a href="#" class="btn btn-success float-right" id="place-order-btn">
+                                <i class="mdi mdi-cart-outline me-1"></i> Place Order </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Order Summary -->
+            <div class="col-xl-5">
+                <div class="card checkout-order-summary">
+                    <div class="card-body">
+                        <div>
+                            <h2>Order Summary</h2>
+                            <table id="order-summary-body">
+                                <!-- Order items will be appended here -->
+                            </table>
+                            <input type="hidden" id="orderNumber" name="orderNumber" value="{{orderNumber}}">
+                            <div id="display-order-number">{{orderNumber}}</div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-centered mb-0 table-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th class="border-top-0" style="width: 110px;" scope="col">Product</th>
+                                        <th class="border-top-0" scope="col">Product Desc</th>
+                                        <th class="border-top-0" scope="col">Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each cartItems}}
+                                    <tr>
+                                        <th scope="row"><img src="/product-images/{{this.item}}.jpg" alt="product-img"
+                                                title="product-img" class="avatar-lg rounded"></th>
+                                        <td>
+                                            <h5 class="font-size-16 text-truncate"><a href="#"
+                                                    class="text-dark">{{this.name}}</a></h5>
+                                            <p class="text-muted mb-0 mt-1">$ {{this.price}} x QTY : {{this.quantity}}
+                                            </p>
+                                        </td>
+                                        <td>$ {{this.productTotal}}</td>
+                                    </tr>
+                                    {{/each}}
+                                    <tr class="bg-light">
+                                        <td colspan="2">
+                                            <h5 class="font-size-14 m-0">Total:</h5>
+                                        </td>
+                                        <td>
+                                            $ {{total}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div style="max-height: 200px; overflow-y: auto;">
+                                <!-- Loop through cart items here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    // Fetch cart items and populate order summary
+    fetch('/cart')
+        .then(response => response.json())
+        .then(cartItems => {
+            const orderSummaryBody = document.getElementById('order-summary-body');
+            if (!orderSummaryBody) {
+                console.error('Order summary body element not found in the DOM.');
+                return;
+            }
+
+            let totalAmount = 0;
+
+            cartItems.forEach(item => {
+                totalAmount += item.total;
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <th scope="row"><img src="/product-images/${item.item}.jpg" alt="product-img" title="product-img" class="avatar-lg rounded"></th>
+                    <td>
+                        <h5 class="font-size-16 text-truncate"><a href="#" class="text-dark">${item.name}</a></h5>
+                        <p class="text-muted mb-0 mt-1">$ ${item.price} x QTY : ${item.quantity}</p>
+                    </td>
+                    <td>$ ${item.total}</td>
+                `;
+
+                orderSummaryBody.appendChild(row);
+            });
+
+            const totalRow = document.createElement('tr');
+            totalRow.classList.add('bg-light');
+            totalRow.innerHTML = `
+                <td colspan="2">
+                    <h5 class="font-size-14 m-0">Total:</h5>
+                </td>
+                <td>
+                    $ ${totalAmount}
+                </td>
+            `;
+            orderSummaryBody.appendChild(totalRow);
+        });
+
+    // Handle place order button click
+    document.getElementById('place-order-btn').addEventListener('click', (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(document.querySelector('form'));
+        const orderData = Object.fromEntries(formData.entries());
+        orderData.paymentMethod = document.querySelector('input[name="pay-method"]:checked').value;
+
+        const orderNumberElement = document.getElementById('orderNumber');
+        if (orderNumberElement) {
+            orderData.orderNumber = orderNumberElement.value;  // Add the generated order number to the order data
+        } else {
+            console.error('Order number element not found when placing the order.');
+        }
+
+        // console.log(orderData);
+
+        fetch('/order/placeOrder', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orderData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.codSuccess) {
+                    showPlacedOrderPopup(orderData.orderNumber);
+                } else {
+                    razorpayPayment(orderData, data);
+                }
+            })
+            .catch(error => {
+                console.error('Error placing order:', error);
+                alert('An error occurred while placing the order. Please try again.');
+            });
+    });
+});
+
+function razorpayPayment (orderData, order) {
+    var options = {
+        "key": "rzp_test_LsB6ulhtx6M1l7", // Enter the Key ID generated from the Dashboard
+        "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "SHOPPING CART PROJECT", //your business name
+        "description": "Test Transaction",
+        "image": "https://example.com/your_logo",
+        "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "handler": function (response) {
+            // alert(response.razorpay_payment_id);
+            // alert(response.razorpay_order_id);
+            // alert(response.razorpay_signature)
+
+            verifyPayment(response,order)
+        },
+        "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
+            "name": orderData.name, //your customer's name
+            "email": orderData.email,
+            "contact": orderData.phone  //Provide the customer's phone number for better conversion rates 
+        },
+        "notes": {
+            "address": "Shopping Cart Project Test"
+        },
+        "theme": {
+            "color": "#f29c07"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+    
+}
+
+function verifyPayment(payment,order){
+    $.ajax({
+        url:'/verify-payment',
+        data:{
+            payment,
+            order
+        },
+        method: 'post',
+        success: (response)=>{
+            if(response.status){
+                showOnlineOrderPopup(payment.razorpay_payment_id);
+            }else{
+                alert("Payment failed")
+            }
+            
+        }
+    })
+}
+
+function showPlacedOrderPopup(orderNumber) {
+    const popup = $('<div class="Placed-Order-notification"></div>');
+    const tickIcon = $('<div class="tick-icon"><i class="fas fa-check"></i></div>');
+    const message = $('<div class="notification-text"></div>').text('Order has been placed successfully!');
+    const orderNumberText = $('<div class="order-number-text"></div>').text(`Order Number: ${orderNumber}`);
+    const button = $('<button class="view-orders-button">View My Orders</button>');
+
+    button.on('click', () => {
+        window.location.href = '/placed-orders'; // Redirect to the orders page
+    });
+
+    popup.append(tickIcon, message, orderNumberText, button);
+    $('body').append(popup);
+
+    // Show the popup
+    popup.fadeIn(300);
+
+    // Set timeout to fade out and remove the popup
+    setTimeout(() => {
+        popup.fadeOut(500, () => {
+            popup.remove();
+            window.location.href = '/'; // Redirect to the home page
+        });
+    }, 7000); // Adjust the timeout as needed
+
+    // Animation for tick icon
+    tickIcon.delay(300).fadeIn(300).delay(5000).fadeOut(500); // Fade in and out with delay
+
+    // Customize tick icon styles
+    tickIcon.find('i').addClass('fa fa-check').css({
+        fontSize: '60px'
+    });
+}
+
+function showOnlineOrderPopup(razorpay_payment_id) {
+    const popup = $('<div class="Placed-Order-notification"></div>');
+    const tickIcon = $('<div class="tick-icon"><i class="fas fa-check"></i></div>');
+    const message = $('<div class="notification-text"></div>').text('Payemetn is Success. Order has been placed successfully!');
+    const orderNumberText = $('<div class="order-number-text"></div>').text(`Payment ID: ${razorpay_payment_id}`);
+    const button = $('<button class="view-orders-button">View My Orders</button>');
+
+    button.on('click', () => {
+        window.location.href = '/placed-orders'; // Redirect to the orders page
+    });
+
+    popup.append(tickIcon, message, orderNumberText, button);
+    $('body').append(popup);
+
+    // Show the popup
+    popup.fadeIn(300);
+
+    // Set timeout to fade out and remove the popup
+    setTimeout(() => {
+        popup.fadeOut(500, () => {
+            popup.remove();
+            window.location.href = '/'; // Redirect to the home page
+        });
+    }, 7000); // Adjust the timeout as needed
+
+    // Animation for tick icon
+    tickIcon.delay(300).fadeIn(300).delay(5000).fadeOut(500); // Fade in and out with delay
+
+    // Customize tick icon styles
+    tickIcon.find('i').addClass('fa fa-check').css({
+        fontSize: '60px'
+    });
+}
+
+</script>
+
+<style>
+    body {
+        margin-top: 20px;
+        background-color: #f1f3f7;
+    }
+
+    .card {
+        margin-bottom: 24px;
+        -webkit-box-shadow: 0 2px 3px #e4e8f0;
+        box-shadow: 0 2px 3px #e4e8f0;
+    }
+
+    .card {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid #eff0f2;
+        border-radius: 1rem;
+    }
+
+    .activity-checkout {
+        list-style: none;
+    }
+
+    .activity-checkout .checkout-icon {
+        position: absolute;
+        top: -4px;
+        left: -24px;
+    }
+
+    .activity-checkout .checkout-item {
+        position: relative;
+        padding-bottom: 24px;
+        padding-left: 35px;
+        border-left: 2px solid #f5f6f8;
+    }
+
+    .activity-checkout .checkout-item:first-child {
+        border-color: #3b76e1;
+    }
+
+    .activity-checkout .checkout-item:first-child:after {
+        background-color: #3b76e1;
+    }
+
+    .activity-checkout .checkout-item:last-child {
+        border-color: transparent;
+    }
+
+    .activity-checkout .checkout-item.crypto-activity {
+        margin-left: 50px;
+    }
+
+    .activity-checkout .checkout-item .crypto-date {
+        position: absolute;
+        top: 3px;
+        left: -65px;
+    }
+
+    .avatar-xs {
+        height: 1rem;
+        width: 1rem;
+    }
+
+    .avatar-sm {
+        height: 2rem;
+        width: 2rem;
+    }
+
+    .avatar {
+        height: 3rem;
+        width: 3rem;
+    }
+
+    .avatar-md {
+        height: 4rem;
+        width: 4rem;
+    }
+
+    .avatar-lg {
+        height: 5rem;
+        width: 5rem;
+    }
+
+    .avatar-xl {
+        height: 6rem;
+        width: 6rem;
+    }
+
+    .avatar-title {
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        background-color: #3b76e1;
+        color: #fff;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        font-weight: 500;
+        height: 100%;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .avatar-group {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        padding-left: 8px;
+    }
+
+    .avatar-group .avatar-group-item {
+        margin-left: -8px;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        -webkit-transition: all .2s;
+        transition: all .2s;
+    }
+
+    .avatar-group .avatar-group-item:hover {
+        position: relative;
+        -webkit-transform: translateY(-2px);
+        transform: translateY(-2px);
+    }
+
+    .card-radio {
+        background-color: #fff;
+        border: 2px solid #eff0f2;
+        border-radius: .75rem;
+        padding: .5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+    }
+
+    .card-radio:hover {
+        cursor: pointer;
+    }
+
+    .card-radio-label {
+        display: block;
+    }
+
+    .edit-btn {
+        width: 35px;
+        height: 35px;
+        line-height: 40px;
+        text-align: center;
+        position: absolute;
+        right: 25px;
+        margin-top: -50px;
+    }
+
+    .card-radio-input {
+        display: none;
+    }
+
+    .card-radio-input:checked+.card-radio {
+        border-color: #3b76e1 !important;
+    }
+
+    .font-size-16 {
+        font-size: 16px !important;
+    }
+
+    .text-truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    a {
+        text-decoration: none !important;
+    }
+
+    .form-control {
+        display: block;
+        width: 100%;
+        padding: 0.47rem 0.75rem;
+        font-size: .875rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #545965;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #e2e5e8;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: 0.75rem;
+        -webkit-transition: border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+        transition: border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+        transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+    }
+
+    .edit-btn {
+        width: 35px;
+        height: 35px;
+        line-height: 40px;
+        text-align: center;
+        position: absolute;
+        right: 25px;
+        margin-top: -50px;
+    }
+
+    .ribbon {
+        position: absolute;
+        right: -26px;
+        top: 20px;
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 1px 22px;
+        font-size: 13px;
+        font-weight: 500;
+    }
+
+    .simple-icons--razorpay {
+        display: inline-block;
+        height: 1em;
+        --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='m22.436 0l-11.91 7.773l-1.174 4.276l6.625-4.297L11.65 24h4.391zM14.26 10.098L3.389 17.166L1.564 24h9.008z'/%3E%3C/svg%3E");
+        background-color: currentColor;
+        -webkit-mask-image: var(--svg);
+        mask-image: var(--svg);
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-size: 100% 100%;
+        mask-size: 100% 100%;
+    }
+
+    .Placed-Order-notification {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: rgb(0, 0, 0);
+        padding: 20px;
+        border-radius: 10px;
+        z-index: 1000;
+        text-align: center;
+        display: none;
+        /* Initially hidden */
+        background: white;
+        /* Background color */
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        /* Shadow for better visibility */
+    }
+
+    .tick-icon {
+        position: relative;
+        /* Change to relative positioning */
+        margin: 0 auto;
+        /* Center horizontally */
+        width: 100px;
+        /* Adjusted size */
+        height: 100px;
+        /* Adjusted size */
+        border-radius: 50%;
+        background: #4CAF50;
+        /* Green background */
+        display: none;
+        /* Initially hidden */
+        color: white;
+        text-align: center;
+        line-height: 100px;
+        /* Adjusted line height */
+    }
+
+    .tick-icon i {
+        font-size: 60px;
+        /* Adjusted icon size */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .notification-text,
+    .order-number-text {
+        margin-top: 20px;
+        /* Space between tick icon and text */
+        font-size: 18px;
+        /* Font size */
+        color: #333;
+        /* Text color */
+    }
+
+    .view-orders-button {
+        margin-top: 20px;
+        /* Space between text and button */
+        padding: 10px 20px;
+        /* Padding */
+        background-color: #4CAF50;
+        /* Button color */
+        color: white;
+        /* Text color */
+        border: none;
+        /* No border */
+        border-radius: 5px;
+        /* Rounded corners */
+        cursor: pointer;
+        /* Pointer cursor on hover */
+        font-size: 16px;
+        /* Font size */
+    }
+
+    .view-orders-button:hover {
+        background-color: #45a049;
+        /* Darker button color on hover */
+    }
+</style>

@@ -1,0 +1,95 @@
+<section>
+    <div class="container">
+        <h1>All Placed Orders</h1>
+        {{#if orders.length}}
+        <table id="allOrders">
+            <thead>
+                <tr>
+                    {{!-- <th scope="col">Date</th> --}}
+                    <th scope="col">Date</th>
+                    <th scope="col">Order Number</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Payment Method</th>
+                    <th scope="col">Total Amount</th>
+                    <th scope="col">Order Status</th>
+                    <th scope="col">Ship Order</th>
+
+                    {{!-- {{formatDate order.date}} --}}
+                </tr>
+            </thead>
+            <tbody>
+                {{#each orders}}
+                <tr>
+                    {{!-- <td>{{this.date}}</td> --}}
+                    <td>{{formatDate this.date}}</td>
+                    <td>{{this.orderNumber}}</td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.paymentMethod}}</td>
+                    <td>$ {{this.total}}</td>
+                    <td>{{this.status}}</td>
+                    <td><button class="btn btn-success" onclick="">Ship Order</button></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        {{else}}
+        <p>No orders found.</p>
+        {{/if}}
+    </div>
+</section>
+
+<script>
+  $(document).ready( function () {
+    $('#allOrders').DataTable();
+} );
+</script>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th,
+    td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    td {
+        vertical-align: top;
+    }
+
+    .no-orders {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .status-placed {
+        background-color: #4CAF50;
+        /* Green */
+        color: white;
+    }
+
+    .status-pending {
+        background-color: #fdd835;
+        /* Yellow */
+    }
+</style>
