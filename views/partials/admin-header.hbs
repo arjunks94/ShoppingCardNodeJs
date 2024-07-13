@@ -5,37 +5,35 @@
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        {{#if adminUser}}
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="./view-products">All Products <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/admin/view-products">All Products <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./all-orders">All Orders<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/admin/all-orders">All Orders<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">All Users<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/admin/all-users">All Users<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <div class="dropdown mr-5">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{#if adminUser}}
-                    {{adminUser.name}}
+                    {{adminUser.userid}}
                     {{else}}
                     Account
                     {{/if}}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     {{#if adminUser}}
-                    <a class="dropdown-item" href="./logout">Logout</a>
+                    <a class="dropdown-item" href="/admin/logout">Logout</a>
                     {{else}}
-                    <a class="dropdown-item" href="./admin">Login</a>
+                    <a class="dropdown-item" href="/admin">Login</a>
                     {{/if}}
                 </div>
             </div>
-            {{/if}}
         </div>
     </nav>
 </header>

@@ -93,15 +93,15 @@ module.exports = {
   },
   doSignup: (userData) => {
     return new Promise(async (resolve, reject) => {
-        userData.Password = await bcrypt.hash(userData.password, 10);
-        db.get().collection(collection.ADMINUSER_COLLECTION).insertOne(userData).then((data) => {
-            userData._id = data.insertedId;
-            resolve(userData);
-        }).catch((err) => {
-            reject(err);
-        });
+      userData.Password = await bcrypt.hash(userData.Password, 10);
+      db.get().collection(collection.ADMINUSER_COLLECTION).insertOne(userData).then((data) => {
+        userData._id = data.insertedId;
+        resolve(userData);
+      }).catch((err) => {
+        reject(err);
+      });
     });
-},
+  },
 
 getAllOrders: () => {
   return new Promise((resolve, reject) => {
@@ -116,5 +116,34 @@ getAllOrders: () => {
         reject(err);
       });
   });
+},
+updateOrderStatus: (orderNumber, status) => {
+  return new Promise((resolve, reject) => {
+    db.get().collection(collection.ORDER_COLLECTION)
+      .updateOne({ orderNumber: orderNumber }, { $set: { status: status } })
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+},
+
+getAllUsers: () => {
+  return new Promise((resolve, reject) => {
+    db.get().collection(collection.ADMINUSER_COLLECTION).find()
+      .project({ name: 1, userid: 1, usertype: 1 }) // Project the desired fields
+      .toArray()
+      .then((allusers) => {
+        resolve(allusers);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
 }
+
+
+
 };

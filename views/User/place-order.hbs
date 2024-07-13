@@ -208,23 +208,23 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-    // Fetch cart items and populate order summary
-    fetch('/cart')
-        .then(response => response.json())
-        .then(cartItems => {
-            const orderSummaryBody = document.getElementById('order-summary-body');
-            if (!orderSummaryBody) {
-                console.error('Order summary body element not found in the DOM.');
-                return;
-            }
+        // Fetch cart items and populate order summary
+        fetch('/cart')
+            .then(response => response.json())
+            .then(cartItems => {
+                const orderSummaryBody = document.getElementById('order-summary-body');
+                if (!orderSummaryBody) {
+                    console.error('Order summary body element not found in the DOM.');
+                    return;
+                }
 
-            let totalAmount = 0;
+                let totalAmount = 0;
 
-            cartItems.forEach(item => {
-                totalAmount += item.total;
+                cartItems.forEach(item => {
+                    totalAmount += item.total;
 
-                const row = document.createElement('tr');
-                row.innerHTML = `
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
                     <th scope="row"><img src="/product-images/${item.item}.jpg" alt="product-img" title="product-img" class="avatar-lg rounded"></th>
                     <td>
                         <h5 class="font-size-16 text-truncate"><a href="#" class="text-dark">${item.name}</a></h5>
@@ -233,12 +233,12 @@
                     <td>$ ${item.total}</td>
                 `;
 
-                orderSummaryBody.appendChild(row);
-            });
+                    orderSummaryBody.appendChild(row);
+                });
 
-            const totalRow = document.createElement('tr');
-            totalRow.classList.add('bg-light');
-            totalRow.innerHTML = `
+                const totalRow = document.createElement('tr');
+                totalRow.classList.add('bg-light');
+                totalRow.innerHTML = `
                 <td colspan="2">
                     <h5 class="font-size-14 m-0">Total:</h5>
                 </td>
@@ -246,167 +246,167 @@
                     $ ${totalAmount}
                 </td>
             `;
-            orderSummaryBody.appendChild(totalRow);
-        });
-
-    // Handle place order button click
-    document.getElementById('place-order-btn').addEventListener('click', (event) => {
-        event.preventDefault();
-
-        const formData = new FormData(document.querySelector('form'));
-        const orderData = Object.fromEntries(formData.entries());
-        orderData.paymentMethod = document.querySelector('input[name="pay-method"]:checked').value;
-
-        const orderNumberElement = document.getElementById('orderNumber');
-        if (orderNumberElement) {
-            orderData.orderNumber = orderNumberElement.value;  // Add the generated order number to the order data
-        } else {
-            console.error('Order number element not found when placing the order.');
-        }
-
-        // console.log(orderData);
-
-        fetch('/order/placeOrder', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(orderData)
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.codSuccess) {
-                    showPlacedOrderPopup(orderData.orderNumber);
-                } else {
-                    razorpayPayment(orderData, data);
-                }
-            })
-            .catch(error => {
-                console.error('Error placing order:', error);
-                alert('An error occurred while placing the order. Please try again.');
+                orderSummaryBody.appendChild(totalRow);
             });
-    });
-});
 
-function razorpayPayment (orderData, order) {
-    var options = {
-        "key": "rzp_test_LsB6ulhtx6M1l7", // Enter the Key ID generated from the Dashboard
-        "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-        "currency": "INR",
-        "name": "SHOPPING CART PROJECT", //your business name
-        "description": "Test Transaction",
-        "image": "https://example.com/your_logo",
-        "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        "handler": function (response) {
-            // alert(response.razorpay_payment_id);
-            // alert(response.razorpay_order_id);
-            // alert(response.razorpay_signature)
+        // Handle place order button click
+        document.getElementById('place-order-btn').addEventListener('click', (event) => {
+            event.preventDefault();
 
-            verifyPayment(response,order)
-        },
-        "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
-            "name": orderData.name, //your customer's name
-            "email": orderData.email,
-            "contact": orderData.phone  //Provide the customer's phone number for better conversion rates 
-        },
-        "notes": {
-            "address": "Shopping Cart Project Test"
-        },
-        "theme": {
-            "color": "#f29c07"
-        }
-    };
-    var rzp1 = new Razorpay(options);
-    rzp1.open();
-    
-}
+            const formData = new FormData(document.querySelector('form'));
+            const orderData = Object.fromEntries(formData.entries());
+            orderData.paymentMethod = document.querySelector('input[name="pay-method"]:checked').value;
 
-function verifyPayment(payment,order){
-    $.ajax({
-        url:'/verify-payment',
-        data:{
-            payment,
-            order
-        },
-        method: 'post',
-        success: (response)=>{
-            if(response.status){
-                showOnlineOrderPopup(payment.razorpay_payment_id);
-            }else{
-                alert("Payment failed")
+            const orderNumberElement = document.getElementById('orderNumber');
+            if (orderNumberElement) {
+                orderData.orderNumber = orderNumberElement.value;  // Add the generated order number to the order data
+            } else {
+                console.error('Order number element not found when placing the order.');
             }
-            
-        }
-    })
-}
 
-function showPlacedOrderPopup(orderNumber) {
-    const popup = $('<div class="Placed-Order-notification"></div>');
-    const tickIcon = $('<div class="tick-icon"><i class="fas fa-check"></i></div>');
-    const message = $('<div class="notification-text"></div>').text('Order has been placed successfully!');
-    const orderNumberText = $('<div class="order-number-text"></div>').text(`Order Number: ${orderNumber}`);
-    const button = $('<button class="view-orders-button">View My Orders</button>');
+            // console.log(orderData);
 
-    button.on('click', () => {
-        window.location.href = '/placed-orders'; // Redirect to the orders page
-    });
-
-    popup.append(tickIcon, message, orderNumberText, button);
-    $('body').append(popup);
-
-    // Show the popup
-    popup.fadeIn(300);
-
-    // Set timeout to fade out and remove the popup
-    setTimeout(() => {
-        popup.fadeOut(500, () => {
-            popup.remove();
-            window.location.href = '/'; // Redirect to the home page
+            fetch('/order/placeOrder', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.codSuccess) {
+                        showPlacedOrderPopup(orderData.orderNumber);
+                    } else {
+                        razorpayPayment(orderData, data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error placing order:', error);
+                    alert('An error occurred while placing the order. Please try again.');
+                });
         });
-    }, 7000); // Adjust the timeout as needed
-
-    // Animation for tick icon
-    tickIcon.delay(300).fadeIn(300).delay(5000).fadeOut(500); // Fade in and out with delay
-
-    // Customize tick icon styles
-    tickIcon.find('i').addClass('fa fa-check').css({
-        fontSize: '60px'
-    });
-}
-
-function showOnlineOrderPopup(razorpay_payment_id) {
-    const popup = $('<div class="Placed-Order-notification"></div>');
-    const tickIcon = $('<div class="tick-icon"><i class="fas fa-check"></i></div>');
-    const message = $('<div class="notification-text"></div>').text('Payemetn is Success. Order has been placed successfully!');
-    const orderNumberText = $('<div class="order-number-text"></div>').text(`Payment ID: ${razorpay_payment_id}`);
-    const button = $('<button class="view-orders-button">View My Orders</button>');
-
-    button.on('click', () => {
-        window.location.href = '/placed-orders'; // Redirect to the orders page
     });
 
-    popup.append(tickIcon, message, orderNumberText, button);
-    $('body').append(popup);
+    function razorpayPayment(orderData, order) {
+        var options = {
+            "key": "rzp_test_LsB6ulhtx6M1l7", // Enter the Key ID generated from the Dashboard
+            "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "SHOPPING CART PROJECT", //your business name
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response) {
+                // alert(response.razorpay_payment_id);
+                // alert(response.razorpay_order_id);
+                // alert(response.razorpay_signature)
 
-    // Show the popup
-    popup.fadeIn(300);
+                verifyPayment(response, order)
+            },
+            "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
+                "name": orderData.name, //your customer's name
+                "email": orderData.email,
+                "contact": orderData.phone  //Provide the customer's phone number for better conversion rates 
+            },
+            "notes": {
+                "address": "Shopping Cart Project Test"
+            },
+            "theme": {
+                "color": "#f29c07"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
 
-    // Set timeout to fade out and remove the popup
-    setTimeout(() => {
-        popup.fadeOut(500, () => {
-            popup.remove();
-            window.location.href = '/'; // Redirect to the home page
+    }
+
+    function verifyPayment(payment, order) {
+        $.ajax({
+            url: '/verify-payment',
+            data: {
+                payment,
+                order
+            },
+            method: 'post',
+            success: (response) => {
+                if (response.status) {
+                    showOnlineOrderPopup(payment.razorpay_payment_id);
+                } else {
+                    alert("Payment failed")
+                }
+
+            }
+        })
+    }
+
+    function showPlacedOrderPopup(orderNumber) {
+        const popup = $('<div class="Placed-Order-notification"></div>');
+        const tickIcon = $('<div class="tick-icon"><i class="fas fa-check"></i></div>');
+        const message = $('<div class="notification-text"></div>').text('Order has been placed successfully!');
+        const orderNumberText = $('<div class="order-number-text"></div>').text(`Order Number: ${orderNumber}`);
+        const button = $('<button class="view-orders-button">View My Orders</button>');
+
+        button.on('click', () => {
+            window.location.href = '/placed-orders'; // Redirect to the orders page
         });
-    }, 7000); // Adjust the timeout as needed
 
-    // Animation for tick icon
-    tickIcon.delay(300).fadeIn(300).delay(5000).fadeOut(500); // Fade in and out with delay
+        popup.append(tickIcon, message, orderNumberText, button);
+        $('body').append(popup);
 
-    // Customize tick icon styles
-    tickIcon.find('i').addClass('fa fa-check').css({
-        fontSize: '60px'
-    });
-}
+        // Show the popup
+        popup.fadeIn(300);
+
+        // Set timeout to fade out and remove the popup
+        setTimeout(() => {
+            popup.fadeOut(500, () => {
+                popup.remove();
+                window.location.href = '/'; // Redirect to the home page
+            });
+        }, 7000); // Adjust the timeout as needed
+
+        // Animation for tick icon
+        tickIcon.delay(300).fadeIn(300).delay(5000).fadeOut(500); // Fade in and out with delay
+
+        // Customize tick icon styles
+        tickIcon.find('i').addClass('fa fa-check').css({
+            fontSize: '60px'
+        });
+    }
+
+    function showOnlineOrderPopup(razorpay_payment_id) {
+        const popup = $('<div class="Placed-Order-notification"></div>');
+        const tickIcon = $('<div class="tick-icon"><i class="fas fa-check"></i></div>');
+        const message = $('<div class="notification-text"></div>').text('Payemetn is Success. Order has been placed successfully!');
+        const orderNumberText = $('<div class="order-number-text"></div>').text(`Payment ID: ${razorpay_payment_id}`);
+        const button = $('<button class="view-orders-button">View My Orders</button>');
+
+        button.on('click', () => {
+            window.location.href = '/placed-orders'; // Redirect to the orders page
+        });
+
+        popup.append(tickIcon, message, orderNumberText, button);
+        $('body').append(popup);
+
+        // Show the popup
+        popup.fadeIn(300);
+
+        // Set timeout to fade out and remove the popup
+        setTimeout(() => {
+            popup.fadeOut(500, () => {
+                popup.remove();
+                window.location.href = '/'; // Redirect to the home page
+            });
+        }, 7000); // Adjust the timeout as needed
+
+        // Animation for tick icon
+        tickIcon.delay(300).fadeIn(300).delay(5000).fadeOut(500); // Fade in and out with delay
+
+        // Customize tick icon styles
+        tickIcon.find('i').addClass('fa fa-check').css({
+            fontSize: '60px'
+        });
+    }
 
 </script>
 

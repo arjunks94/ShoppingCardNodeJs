@@ -34,7 +34,7 @@
                     <td>${{this.total}}</td>
                     <td>{{this.paymentMethod}}</td>
                     <td
-                        class="{{#if (eq this.status 'Placed')}}status-placed{{else if (eq this.status 'Pending')}}status-pending{{/if}}">
+                        class="{{#if (eq this.status 'Placed')}}status-placed{{else if (eq this.status 'Shipped')}}status-shipped{{else if (eq this.status 'Pending')}}status-pending{{/if}}">
                         {{this.status}}
                     </td>
                 </tr>
@@ -94,5 +94,10 @@
     .status-pending {
         background-color: #fdd835;
         /* Yellow */
+    }
+
+        .status-shipped {
+        background-color: #00e1ff;
+        /* Blue */
     }
 </style>

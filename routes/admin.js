@@ -11,6 +11,7 @@ const verifyAdminLogin = (req, res, next) => {
   }
 };
 
+
 router.get('/', (req, res) => {
   if (req.session.admin) {
     res.redirect('/admin/view-products',{admin: true});
@@ -21,7 +22,6 @@ router.get('/', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-  // console.log(req.body)
   productHelpers.doLogin(req.body).then((response) => {
     if (response.status) {
       req.session.admin = response.adminuser;
@@ -29,38 +29,32 @@ router.post('/login', (req, res) => {
       res.redirect('/admin/view-products');
     } else {
       req.session.adminLoginErr = "Invalid Username or Password";
-      res.redirect('admin/admin-login');
+      res.redirect('/admin');
     }
   });
 });
 
-router.get('/signup', (req, res) => {
-  if (req.session.user) {
-    res.redirect('/');
-  } else {
-    res.render('admin/admin-signup');
-  }
+router.get('/signup', verifyAdminLogin, (req, res) => {
+  res.render('admin/admin-signup',{admin: true});
 });
 
 router.post('/signup', (req, res) => {
-  // console.log(req.body)
   productHelpers.doSignup(req.body).then((response) => {
     req.session.admin = response;
-    req.session.admin.loggedIn = true
-    res.redirect('/admin');
+    req.session.admin.loggedIn = true;
+    res.redirect(302, '/admin/all-users');
   }).catch((err) => {
-    res.redirect('/admin-signup');
+    res.redirect(302, '/admin/signup');
   });
 });
 
-
 router.get('/view-products', verifyAdminLogin, (req, res) => {
-  let adminUser = req.session.admin
-  // console.log("[adminUser]);
+  let adminUser = req.session.admin;
   productHelpers.getAllProducts().then((products) => {
     res.render('admin/view-products', { admin: true, products, adminUser });
   });
 });
+
 
 router.get('/add-product', verifyAdminLogin, (req, res) => {
   res.render('admin/add-product');
@@ -112,18 +106,35 @@ router.post('/edit-product/:id', verifyAdminLogin, (req, res) => {
   });
 });
 
-router.get('/all-orders',verifyAdminLogin, async(req,res)=>{
+router.get('/all-orders', verifyAdminLogin, async (req, res) => {
   let adminUser = req.session.admin;
   let orders = await productHelpers.getAllOrders();
-  // console.log(orders)
-
-res.render('admin/all-orders',{admin: true, orders})
-
-})
+  res.render('admin/all-orders', { admin: true, orders, adminUser });
+});
 
 router.get('/logout',(req,res)=>{
   req.session.destroy()
   res.redirect('/admin')
 })
+
+router.post('/ship-order', verifyAdminLogin, (req, res) => {
+  const { orderNumber } = req.body;
+  productHelpers.updateOrderStatus(orderNumber, 'Shipped').then((response) => {
+    res.json({ status: true });
+  }).catch((err) => {
+    res.json({ status: false, error: err });
+  });
+});
+
+router.get('/all-users', verifyAdminLogin, async (req, res) => {
+  try {
+    let allusers = await productHelpers.getAllUsers();
+    console.log(allusers); // This will now log the actual data
+    res.render('admin/all-users', { allusers, admin: true, adminUser: req.session.admin });
+  } catch (err) {
+    console.error(err);
+    res.redirect('/admin');
+  }
+});
 
 module.exports = router;
